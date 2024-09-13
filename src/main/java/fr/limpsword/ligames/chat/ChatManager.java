@@ -20,7 +20,7 @@ public class ChatManager {
 
     public static void sendGlobalMessage(Component component) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(prefix + component);
+            player.sendMessage(Component.text(prefix).append(component));
         }
     }
 }

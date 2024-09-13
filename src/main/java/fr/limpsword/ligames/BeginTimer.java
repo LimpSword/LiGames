@@ -60,7 +60,7 @@ public class BeginTimer extends BukkitRunnable {
         };
 
         if (c != null) {
-            ChatManager.sendGlobalMessage("La partie démarre dans {0}{0} &esecondes", c, timeLeft);
+            ChatManager.sendGlobalMessage("La partie démarre dans %s%s §esecondes", c, timeLeft);
         }
 
         timeLeft--;

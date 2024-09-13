@@ -5,6 +5,7 @@ import fr.limpsword.ligames.listeners.GameListener;
 import fr.limpsword.ligames.timer.Timer;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -69,13 +70,13 @@ public abstract class Game<GP extends GamePlayer> {
 
     public void playerLogin(Plugin plugin, Player player) {
         try {
-            GP GP = this.gpClass.getConstructor(Player.class).newInstance(player);
+            GP GP = this.gpClass.getConstructor(Game.class, Player.class).newInstance(this, player);
             this.players.put(player.getUniqueId(), GP);
 
             player.showTitle(Title.title(Component.text("§b" + displayName), Component.text("§3" + description)));
 
             if (gameStep == GameStep.WAITING) {
-                ChatManager.sendGlobalMessage(player.displayName().append(Component.space()).append(Component.text("a rejoint le jeu ! " + "§c(" + this.players.size() + "/∞)")));
+                ChatManager.sendGlobalMessage(player.displayName().color(NamedTextColor.GRAY).append(Component.space()).append(Component.text("§7a rejoint le jeu ! " + "§c(" + this.players.size() + "/∞)")));
             }
 
             if (beginTimer == null && this.players.size() >= minToStart && (gameStep == GameStep.WAITING)) {
@@ -88,11 +89,11 @@ public abstract class Game<GP extends GamePlayer> {
         }
     }
 
-    public void spec(GP player) {
-        spectators.put(player.uuid, player);
+    public void spec(GamePlayer player) {
+        spectators.put(player.uuid, (GP) player);
     }
 
-    public void removePlayer(GP player) {
+    public void removePlayer(GamePlayer player) {
         players.remove(player.uuid);
     }
 

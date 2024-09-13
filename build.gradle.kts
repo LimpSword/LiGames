@@ -27,7 +27,11 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+
+    compileOnly("com.mojang:authlib:3.11.50")
 
     compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")

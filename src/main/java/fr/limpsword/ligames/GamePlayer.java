@@ -17,12 +17,12 @@ import java.util.UUID;
 
 public abstract class GamePlayer {
 
-    protected final Game<GamePlayer> game;
+    protected final Game<? extends GamePlayer> game;
 
     protected final PlayerBoard playerBoard;
     protected final UUID uuid;
 
-    public GamePlayer(Game<GamePlayer> game, @NotNull Player player) {
+    public GamePlayer(Game<? extends GamePlayer> game, @NotNull Player player) {
         Objects.requireNonNull(player);
 
         this.game = game;
