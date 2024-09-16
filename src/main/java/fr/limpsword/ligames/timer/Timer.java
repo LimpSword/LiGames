@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public final class Timer {
 
@@ -21,6 +22,10 @@ public final class Timer {
         return runnableMap.containsKey(name);
     }
 
+    public static void repeated(Plugin plugin, long delay, long delayBetween, Runnable runnable) {
+        repeated(plugin, UUID.randomUUID().toString(), delay, delayBetween, runnable);
+    }
+
     public static void repeated(Plugin plugin, @NotNull String name, long delay, long delayBetween, Runnable runnable) {
         BukkitTask bukkitTask = new BukkitRunnable() {
             @Override
@@ -30,6 +35,10 @@ public final class Timer {
         }.runTaskTimer((Plugin) plugin, delay, delayBetween);
         runnableMap.put(name, bukkitTask);
         tasksPerPlugin.put((Plugin) plugin, Pair.of(bukkitTask, name));
+    }
+
+    public static void later(Plugin plugin, long delay, Runnable runnable) {
+        later(plugin, UUID.randomUUID().toString(), delay, runnable);
     }
 
     public static void later(Plugin plugin, @NotNull String name, long delay, Runnable runnable) {
