@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -89,8 +90,15 @@ public abstract class Game<GP extends GamePlayer> {
         }
     }
 
+    public void spec(Player player) {
+        spec(this.getPlayer(player));
+    }
+
     public void spec(GamePlayer player) {
         spectators.put(player.uuid, (GP) player);
+
+        player.getPlayer().teleport(player.getPlayer().getWorld().getSpawnLocation());
+        player.getPlayer().setGameMode(GameMode.SPECTATOR);
     }
 
     public void removePlayer(GamePlayer player) {
